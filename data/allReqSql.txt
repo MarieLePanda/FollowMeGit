@@ -1,0 +1,6 @@
+allReqSql.txt
+
+RETRIEVE USER ID WITH PSEUDO 
+-----------------------------
+SELECT id_user FROM utilisateur WHERE pseudo_user = $pseudo;
+

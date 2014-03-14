@@ -1,0 +1,15 @@
+function nouveauProjet($libelle, $userMaster){
+  		$db = connexion();
+ 	try{
+	  	$inser_prj = $db->prepare(
+	 		'INSERT INTO projet (num_projet,libelle_projet, id_userMaster) VALUES (:num_projet,:libelle_projet,:id_userMaster)'
+	 	);
+	  	$inser_prj->bindParam(':num_projet', '');
+	  	$inser_prj->bindParam(':libelle_projet', $libelle);
+	  	$inser_prj->bindParam(':id_userMaster', $userMaster);
+	  	$inser_prj->execute();
+  	}catch(PDOException $e){
+ 		print "Erreur !: " . $e->getMessage() . "<br/>";
+ 		die();
+  	}
+ }
