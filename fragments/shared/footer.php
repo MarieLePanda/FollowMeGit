@@ -11,5 +11,16 @@
 		</ul>
 		</div>
 		</div>
+		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<?php 
+		if (isset($jsDependencies)){
+			foreach($jsDependencies as $jsd){
+				?>
+				<script src="<?= $jsd ?>"></script>
+				<?php
+			}
+		}
+		?>
+
 	</body>
 </html>
