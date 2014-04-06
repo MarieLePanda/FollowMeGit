@@ -115,7 +115,7 @@ class SqlFunction{
             $db = SqlFunction::connexion();
             $resultats=$db->prepare('SELECT projet.num_projet, projet.libelle_projet, projet.id_userMaster FROM projet,utilisateur WHERE :id_userMaster = ? '); // on va chercher tous les membres de la table qu'on trie par ordre croissant
             echo $user->getid();
-            $resultats->bindParam(':id_userMaster', $user->getid());
+            $resultats->bindParam(':id_userMaster', $user->getId());
 			$resultats->execute();	
         	return $reponse->fetchAll();
 			$projectArray(array_count_values($data));
@@ -136,19 +136,28 @@ class SqlFunction{
 /* ------------------------------------------------------------------------------------ */
 /*                         LISTE DES COLONNES DE TACHES                                    */
 /* ------------------------------------------------------------------------------------ */
-     public static function listeColonne($num_projet, $id_userMaster){
+     public static function statut($project, $user){
         $db = SqlFunction::connexion();
         try {
-            $reponse = $db->prepare('SELECT DISTINCT statut.*
-            FROM statut, projet, utilisateur
-            WHERE statut.num_projetRef = projet.num_projet
-            AND statut.id_userMaster = projet.id_userMaster
-            AND statut.num_projetRef = :num_projet
-            AND statut.id_userMaster = :id_userMaster
-            GROUP BY statut.id_statut');
+            $resultats = $db->prepare('SELECT *
+				FROM statut
+				WHERE num_projetRef = :num_projet
+				AND id_userMaster = :id_userMaster
+            	GROUP BY statut.id_statut');
+            $resultats->bindParam(':num_projet', $project->getId());
+            $resultats->bindParam(':id_userMaster', $user->getId());
+			$resultats->execute();	
 
-            $reponse->execute(array(':num_projet'=>$num_projet,':id_userMaster'=> $id_userMaster));
-            return $reponse->fetchAll();
+            $donnees = $rep->fetchAll();
+            $arrayStatuts[$donnees->sizeof()];
+            $i = 0;
+            foreach ($donnees as $d){
+            	$arrayStatuts[$i] = new statut($d['id_statut'], $d['libelle_statut']);
+            	$i++;
+            }
+            
+            return $arrayStatuts;
+            
         }catch (PDOException $e) {
             echo "Erreur !: " . $e->getMessage() . "<br/>";
         }
@@ -175,22 +184,18 @@ class SqlFunction{
 /* ------------------------------------------------------------------------------------ */
 /*                             LISTE DES TACHES                                        */
 /* ------------------------------------------------------------------------------------ */
-    public static function listeTache($id_priorite, $num_projet, $id_userMaster, $id_statut){
+    public static function listTask($project){
         $db = SqlFunction::connexion();
         try {
             $reponse = $db->prepare('select tache.* 
-            from tache, projet, statut, priorite
-            where tache.id_statut = statut.id_statut
-            AND tache.num_projet = projet.num_projet
-            AND tache.id_userMaster = projet.id_userMaster
-            AND tache.id_priorite = priorite.id_priorite
-            AND tache.id_priorite = :id_priorite
-            and tache.num_projet = :num_projet
-            and tache.id_userMaster = :id_userMaster
-            and tache.id_statut = :id_statut');
-
-            $reponse->execute(array(':id_priorite'=>$id_priorite, ':num_projet'=>$num_projet,':id_userMaster'=> $id_userMaster, ':id_statut'=>$id_statut));
-            return $reponse->fetchAll();
+            from tache
+            where tache.num_projet = :num_projet
+            AND tache.id_userMaster = :id_userMaster');
+            $resultats->bindParam(':num_projet', $project->getId());
+            $resultats->bindParam(':id_userMaster', $project->getIduserMaster());
+			$resultats->execute();
+			
+			
         }catch (PDOException $e) {
             echo "Erreur !: " . $e->getMessage() . "<br/>" . $e->getLine();
         }

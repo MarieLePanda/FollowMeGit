@@ -26,6 +26,16 @@ class Project{
 		$this->idUserMaster = $iduserMaster;
 	}
 	
+	private $listTask;
+	public function getListTask(){
+		return SqlFunction::listTask($project);
+	}
+	
+	private $listStatut;
+	public function getListStatut(){
+		return SqlFunction::statut($this);
+	}
+	
 	public function __construct($id, $name, $idUserMaster){
 		$this->id = $id;
 		$this->name = $name;

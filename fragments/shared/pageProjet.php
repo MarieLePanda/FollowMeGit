@@ -1,13 +1,18 @@
 <?php 
-	session_start();
 	$page_title = "Follow Me - Page projet ";
 
-	include ($_SERVER['DOCUMENT_ROOT'] . '/follow/fragments/shared/headerSite.php');
-	$idProjet = $_GET['id'];
-	$id_userMaster = 1;
-	include ($_SERVER['DOCUMENT_ROOT'] . '/follow/data/sqlFunction.php');
-	$colonnes = listeColonne($idProjet,1);
-	$lignes = listeLigne($idProjet, 1);
+	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/fragments/shared/headerSite.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/data/sqlFunction.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Project.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/User.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Task.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Statut.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Priorite.php');
+	
+	$project = new Project(1, "follow", 0);
+	$user = new User(0, "panda", "panda@gmail.com", "panda");
+	$colonnes = SqlFunction::statut($project, $user);
+	$lignes = listeLigne(1, 0);
 ?>
 			<div id= "buttons">
 				<ul id="side-menu">

@@ -10,8 +10,8 @@ if(!empty($_SESSION)){
 <?php
 }else{
     $page_title = "Follow Me - Page perso ";
-    include ($_SERVER['DOCUMENT_ROOT'] . '/follow/fragments/shared/headerSite.php');
-    include ($_SERVER['DOCUMENT_ROOT'] . '/follow/data/SqlFunction.php');
+    include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/fragments/shared/headerSite.php');
+    include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/data/SqlFunction.php');
     $projets = viewProject($_SESSION['user_id']);
     ?>
     <div id="TitreListeProjet">
