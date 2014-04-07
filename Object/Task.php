@@ -42,3 +42,4 @@ class Task{
 		$this->priorite = $priorite;
 	}
 }
+?>
