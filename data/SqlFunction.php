@@ -115,20 +115,11 @@ class SqlFunction{
         try{
             $db = SqlFunction::connexion();
 
-            $resultats=$db->prepare('SELECT projet.num_projet, projet.libelle_projet, projet.id_userMaster FROM projet,utilisateur WHERE :id_userMaster = ? '); // on va chercher tous les membres de la table qu'on trie par ordre croissant
+            $resultats=$db->prepare('SELECT DISTINCT projet.num_projet, projet.libelle_projet, projet.id_userMaster FROM projet,utilisateur WHERE :id_userMaster = ? '); // on va chercher tous les membres de la table qu'on trie par ordre croissant
             echo $user->getid();
             $resultats->bindParam(':id_userMaster', $id);
 			$resultats->execute();	
         	return $reponse->fetchAll();
-			$projectArray(array_count_values($data));
-			$i = 0;
-			foreach($d as $data)
-			{
-				$projectArray[$i] = new Project($data[$i]['num_projet'], $data[$i]['libelle_projet'], $data[$i]['id_userMaster']);
-				$i++;
-			}
-			return ProjectArray;
-
         }
         catch(PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
