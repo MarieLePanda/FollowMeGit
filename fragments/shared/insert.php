@@ -3,8 +3,8 @@
 /*						APPEL CREATION D'UN UTILISATEUR									*/
 /* ------------------------------------------------------------------------------------ */
 session_start();
-include ($_SERVER['DOCUMENT_ROOT'] . '/follow/data/SqlFunction.php');
-include ($_SERVER['DOCUMENT_ROOT'] . '/follow/Object/User.php');
+include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/data/SqlFunction.php');
+include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/User.php');
 $email = $_POST['email'];
 $pseudo = $_POST['pseudo'];
 $mdp = $_POST['mdp'];

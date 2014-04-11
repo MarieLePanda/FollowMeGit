@@ -7,7 +7,7 @@
 	<head>
 	   <title><?php $page_title ?></title>
 	   <!-- link the main style -->
-	   <link rel="stylesheet" type="text/css" href="/follow/res/stylePagePerso.css"/>
+	   <link rel="stylesheet" type="text/css" href="/FollowMeGit/res/stylePagePerso.css"/>
 	</head>
 	<body>
 	<div id="page">
