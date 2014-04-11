@@ -11,7 +11,7 @@ class statut{
 	
 	private $name;
 	public function getName(){
-		$this->name;
+		return $this->name;
 	}
 	public function setName($name){
 		$this->name = $name;

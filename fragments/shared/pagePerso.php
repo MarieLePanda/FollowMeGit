@@ -10,9 +10,16 @@ if(!empty($_SESSION)){
 <?php
 }else{
     $page_title = "Follow Me - Page perso ";
-    include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/fragments/shared/headerSite.php');
-    include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/data/SqlFunction.php');
-    $projets = viewProject($_SESSION['user_id']);
+    include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/fragments/shared/headerSite.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/data/sqlFunction.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Project.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/User.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Task.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Statut.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Priorite.php');
+    //$user = unserialize($_COOKIE['userObject']);
+    $user = new User($_SESSION['user_id'], NULL, NULL, NULL);
+    $projets = SqlFunction::viewProject($user);
     ?>
     <div id="TitreListeProjet">
     Liste de vos projets en cours

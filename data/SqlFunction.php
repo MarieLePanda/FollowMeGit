@@ -110,12 +110,12 @@ class SqlFunction{
 /*                                 LISTER DES PROJETS                                        */
 /* ------------------------------------------------------------------------------------ */
     public static function viewProject($user){
-        
+        $id = $user->getId();
         try{
             $db = SqlFunction::connexion();
             $resultats=$db->prepare('SELECT projet.num_projet, projet.libelle_projet, projet.id_userMaster FROM projet,utilisateur WHERE :id_userMaster = ? '); // on va chercher tous les membres de la table qu'on trie par ordre croissant
             echo $user->getid();
-            $resultats->bindParam(':id_userMaster', $user->getId());
+            $resultats->bindParam(':id_userMaster', $id);
 			$resultats->execute();	
         	return $reponse->fetchAll();
 			$projectArray(array_count_values($data));
@@ -136,7 +136,7 @@ class SqlFunction{
 /* ------------------------------------------------------------------------------------ */
 /*                         LISTE DES COLONNES DE TACHES                                    */
 /* ------------------------------------------------------------------------------------ */
-     public static function statut($project, $user){
+     public static function statut($project){
         $db = SqlFunction::connexion();
         try {
             $resultats = $db->prepare('SELECT *
@@ -144,12 +144,14 @@ class SqlFunction{
 				WHERE num_projetRef = :num_projet
 				AND id_userMaster = :id_userMaster
             	GROUP BY statut.id_statut');
-            $resultats->bindParam(':num_projet', $project->getId());
-            $resultats->bindParam(':id_userMaster', $user->getId());
+            $projectId = $project->getId();
+            $userId = $project->getIdUserMaster();
+            $resultats->bindParam(':num_projet', $projectId);
+            $resultats->bindParam(':id_userMaster', $userId);
 			$resultats->execute();	
 
-            $donnees = $rep->fetchAll();
-            $arrayStatuts[$donnees->sizeof()];
+            $donnees = $resultats->fetchAll();
+            $arrayStatuts = array();
             $i = 0;
             foreach ($donnees as $d){
             	$arrayStatuts[$i] = new statut($d['id_statut'], $d['libelle_statut']);
@@ -165,19 +167,31 @@ class SqlFunction{
 /* ------------------------------------------------------------------------------------ */
 /*                     RENVOIS LA LISTE DES LIGNES DE TACHES                                */
 /* ------------------------------------------------------------------------------------ */
-	public static function listeLigne($num_projet, $id_userMaster){
-	    $db = SqlFunction::connexion();
-	    try {
-	        $reponse = $db->prepare('SELECT priorite.*
-	        FROM priorite, projet, utilisateur
-	        WHERE priorite.num_projetRef = projet.num_projet
-	        AND priorite.id_userMaster = projet.id_userMaster
-	        AND priorite.num_projetRef = :num_projet
-	        AND priorite.id_userMaster = :id_userMaster
-	        GROUP BY priorite.id_priorite');
-	        $reponse->execute(array(':num_projet'=>$num_projet,':id_userMaster'=> $id_userMaster));
-	        return $reponse->fetchAll();
-        } catch (PDOException $e) {
+	public static function priorite($project){
+	$db = SqlFunction::connexion();
+        try {
+            $resultats = $db->prepare('SELECT *
+				FROM priorite
+				WHERE num_projetRef = :num_projet
+				AND id_userMaster = :id_userMaster
+            	GROUP BY priorite.id_priorite');
+            $projectId = $project->getId();
+            $userId = $project->getIdUserMaster();
+            $resultats->bindParam(':num_projet', $projectId);
+            $resultats->bindParam(':id_userMaster', $userId);
+			$resultats->execute();	
+
+            $donnees = $resultats->fetchAll();
+            $arrayPriorite = array();
+            $i = 0;
+            foreach ($donnees as $d){
+            	$arrayPriorite[$i] = new priorite($d['id_priorite'], $d['libelle_priorite']);
+            	$i++;
+            }
+            
+            return $arrayPriorite;
+            
+        }catch (PDOException $e) {
             echo "Erreur !: " . $e->getMessage() . "<br/>";
         }
     }
@@ -187,18 +201,27 @@ class SqlFunction{
     public static function listTask($project){
         $db = SqlFunction::connexion();
         try {
-            $reponse = $db->prepare('select tache.* 
-            from tache
-            where tache.num_projet = :num_projet
-            AND tache.id_userMaster = :id_userMaster');
-            $resultats->bindParam(':num_projet', $project->getId());
-            $resultats->bindParam(':id_userMaster', $project->getIduserMaster());
-			$resultats->execute();
-			
-			
-        }catch (PDOException $e) {
-            echo "Erreur !: " . $e->getMessage() . "<br/>" . $e->getLine();
-        }
+            $resultats = $db->prepare('SELECT *
+				FROM tache
+				WHERE num_projet = :num_projet
+				AND id_userMaster = :id_userMaster
+            	GROUP BY tache.id_tache');
+            $projectId = $project->getId();
+            $userId = $project->getIdUserMaster();
+            $resultats->bindParam(':num_projet', $projectId);
+            $resultats->bindParam(':id_userMaster', $userId);
+			$resultats->execute();	
+
+            $donnees = $resultats->fetchAll();
+            $arrayTask = array();
+            $i = 0;
+            foreach ($donnees as $d){
+            	$arrayTask[$i] = new Task($d['id_tache'], $d['libelle_tache'], $d['id_statut'], $d['id_priorite']);
+            	$i++;
+            }
+         }catch (PDOException $e) {
+            echo "Erreur !: " . $e->getMessage() . "<br/>";
+         }
+            return $arrayTask;
     }
-}
-?>
+}?>
