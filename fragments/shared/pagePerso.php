@@ -10,24 +10,11 @@ if(!empty($_SESSION)){
 <?php
 }else{
     $page_title = "Follow Me - Page perso ";
-<<<<<<< HEAD
     include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/object/User.php');
     include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/fragments/shared/headerSite.php');
     include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/data/SqlFunction.php');
     $unUser = new User($_SESSION['user_id'],null,null,null);
     $projets = SqlFunction::viewProject($unUser);
-=======
-    include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/fragments/shared/headerSite.php');
-	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/data/sqlFunction.php');
-	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Project.php');
-	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/User.php');
-	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Task.php');
-	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Statut.php');
-	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Priorite.php');
-    //$user = unserialize($_COOKIE['userObject']);
-    $user = new User($_SESSION['user_id'], NULL, NULL, NULL);
-    $projets = SqlFunction::viewProject($user);
->>>>>>> FETCH_HEAD
     ?>
     <div id="TitreListeProjet">
     Liste de vos projets en cours
