@@ -11,8 +11,8 @@
 	
 	$project = new Project(1, "follow", 0);
 	$user = new User(0, "panda", "panda@gmail.com", "panda");
-	$statuts = SqlFunction::statut($project);
-	$priorite = SqlFunction::priorite($project);
+	$colonnes = SqlFunction::statut($project, $user);
+	$lignes = listeLigne(1, 0);
 ?>
 			<div id= "buttons">
 				<ul id="side-menu">
@@ -31,28 +31,28 @@
 						<TR> 
 							<TH></TH>
 							<?php 
-								foreach ($statuts as $s) {
+								foreach ($colonnes as $c) {
 							?> 
-								<TH> <div id="entree"><?php echo $s->getName() ?></div>  </TH> 
+								<TH> <div id="entree"><?php echo $c['libelle_statut'] ?></div>  </TH> 
 								
 							<?php }?>
 						</TR> 
 						
 						<?php 
-							foreach ($priorite as $p){ 
+							foreach ($lignes as $l){ 
 							?>
 							<TR> 
-								<TH> <div id="entree"> <?php echo $p->getName()?> </div> </TH> 
-								<?php foreach ($statuts as $s){
+								<TH> <div id="entree"> <?php echo $l['libelle_priorite']?> </div>  </TH> 
+								<?php foreach ($colonnes as $c){
 								?>
-								<TD> <?php $tache = SqlFunction::listTask($project); 
+								<TD> <?php $tache = listeTache($l['id_priorite'], $idProjet, $id_userMaster, $c['id_statut']); 
+								if(!empty($tache)){
 									foreach ($tache as $t){
-										if($t->getStatut() == $s->getId() && $t->getPriorite() == $p->getId()){
 										?>
 										<!-- <br /> -->
 										<div id="tache">
 											<?php
-											 echo($t->getName() . "\n " ."");
+											 echo($t['libelle_tache'] . "\n " ."");
 											?>
 										</div>
 										<?php

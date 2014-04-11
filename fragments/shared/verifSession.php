@@ -7,7 +7,6 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/User.php');
 session_start();
 $user = new User(null, $_POST['pseudoco'], null, $_POST['mdpco']);
 $user = $user->connection();
-setcookie('userObject',serialize($user));
 $_SESSION['user_id'] = $user->getId();
 ?>
 <script>
