@@ -10,9 +10,11 @@ if(!empty($_SESSION)){
 <?php
 }else{
     $page_title = "Follow Me - Page perso ";
-    include ($_SERVER['DOCUMENT_ROOT'] . '/follow/fragments/shared/headerSite.php');
-    include ($_SERVER['DOCUMENT_ROOT'] . '/follow/data/SqlFunction.php');
-    $projets = viewProject($_SESSION['user_id']);
+    include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/object/User.php');
+    include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/fragments/shared/headerSite.php');
+    include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/data/SqlFunction.php');
+    $unUser = new User($_SESSION['user_id'],null,null,null);
+    $projets = SqlFunction::viewProject($unUser);
     ?>
     <div id="TitreListeProjet">
     Liste de vos projets en cours
@@ -37,12 +39,13 @@ if(!empty($_SESSION)){
                 </a>
             </li>
         </ul>
-        <?php }?>
+        <?php }
+        ?>
     
     <?php
         $jsDependencies[] = "/follow/res/js/test.js";
     ?>
     <?php
-        include ($_SERVER['DOCUMENT_ROOT'] . '/follow/fragments/shared/footer.php');
+        include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/fragments/shared/footer.php');
 }
 ?>
