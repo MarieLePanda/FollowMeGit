@@ -158,7 +158,7 @@ class SqlFunction{
         try{
             $db = SqlFunction::connexion();
 
-            $resultats=$db->prepare('SELECT DISTINCT projet.num_projet, projet.libelle_projet, projet.id_userMaster FROM projet,utilisateur WHERE id_userMaster = id_userMaster '); // on va chercher tous les membres de la table qu'on trie par ordre croissant
+            $resultats=$db->prepare('SELECT DISTINCT projet.num_projet, projet.libelle_projet, projet.id_userMaster FROM projet,utilisateur WHERE id_userMaster = :id_userMaster '); // on va chercher tous les membres de la table qu'on trie par ordre croissant
             echo $user->getid();
             $resultats->bindParam(':id_userMaster', $id);
 			$resultats->execute();	
