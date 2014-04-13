@@ -15,6 +15,6 @@ $user->subscribe();
 $user = $user->connection();
 setcookie('userObject',serialize($user));
 $_SESSION['user_id'] = $user->getId();
-header("location:/follow/index.php"); 
+header("location:/FollowMeGit/index.php"); 
 
 ?>
