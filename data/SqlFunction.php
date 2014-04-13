@@ -160,6 +160,7 @@ class SqlFunction{
             echo $user->getid();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             $resultats->bindParam(':id_userMaster', $user->getId());
             $resultats->execute();  
             return $reponse->fetchAll();
@@ -171,6 +172,11 @@ class SqlFunction{
                 $i++;
             }
             return ProjectArray;
+=======
+            $resultats->bindParam(':id_userMaster', $id);
+			$resultats->execute();	
+        	return $reponse->fetchAll();
+>>>>>>> FETCH_HEAD
 =======
             $resultats->bindParam(':id_userMaster', $id);
 			$resultats->execute();	
@@ -224,10 +230,13 @@ class SqlFunction{
             $arrayStatuts = array();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             $donnees = $resultats->fetchAll();
             $arrayStatuts = array();
 
+>>>>>>> FETCH_HEAD
+=======
 >>>>>>> FETCH_HEAD
             $i = 0;
             foreach ($donnees as $d){
@@ -246,6 +255,7 @@ class SqlFunction{
 /* ------------------------------------------------------------------------------------ */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static function listeLigne($num_projet, $id_userMaster){
         $db = SqlFunction::connexion();
         try {
@@ -260,6 +270,8 @@ class SqlFunction{
             return $reponse->fetchAll();
         } catch (PDOException $e) {
 =======
+=======
+>>>>>>> FETCH_HEAD
 =======
 >>>>>>> FETCH_HEAD
 	public static function priorite($project){
@@ -288,6 +300,9 @@ class SqlFunction{
             
         }catch (PDOException $e) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> FETCH_HEAD
+=======
 >>>>>>> FETCH_HEAD
 =======
 >>>>>>> FETCH_HEAD
@@ -300,6 +315,7 @@ class SqlFunction{
     public static function listTask($project){
         $db = SqlFunction::connexion();
         try {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
             $reponse = $db->prepare('select tache.* 
@@ -315,6 +331,8 @@ class SqlFunction{
             echo "Erreur !: " . $e->getMessage() . "<br/>" . $e->getLine();
         }
 =======
+=======
+>>>>>>> FETCH_HEAD
 =======
 >>>>>>> FETCH_HEAD
             $resultats = $db->prepare('SELECT *
@@ -341,6 +359,9 @@ class SqlFunction{
             return $arrayTask;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> FETCH_HEAD
+=======
 >>>>>>> FETCH_HEAD
 =======
 >>>>>>> FETCH_HEAD

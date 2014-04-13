@@ -30,6 +30,9 @@ setcookie('userObject',serialize($user));
 $_SESSION['user_id'] = $user->getId();
 header("location:/FollowMeGit/index.php"); 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> FETCH_HEAD
+=======
 >>>>>>> FETCH_HEAD
 =======
 >>>>>>> FETCH_HEAD
