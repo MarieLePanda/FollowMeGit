@@ -11,7 +11,7 @@ class SqlFunction{
 /* ------------------------------------------------------------------------------------ */
     public static function connexion(){
         try{
-            $db = new PDO('mysql:host=localhost;dbname=testfollow1', "root", "");
+            $db = new PDO('mysql:host=localhost;dbname=testfollow1', "root", "root");
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $db;
         }catch (PDOException $e) {
@@ -52,7 +52,7 @@ class SqlFunction{
         try{
 	            $db = SqlFunction::connexion();
                 $insert_user = $db->prepare(
-                    "SELECT * FROM utilisateur WHERE pseudo_user = :pseudo_user and mdp_user = :mdp_user"
+                    "SELECT * FROM utilisateur WHERE pseudo_user = :pseudo_user AND mdp_user = :mdp_user"
                 );
                 $name = $user->getName();
                 $pass = $user->getPwd();
@@ -65,6 +65,7 @@ class SqlFunction{
                     return false;
                 }
                 $user = new User($donnees[0]['id_user'], $donnees[0]['pseudo_user'], $donnees[0]['email_user'], $donnees[0]['mdp_user']);
+                echo("DANS LA FONCTION CONNECTIONUSER DE SQLFUNCTION ---> ".$donnees[0]['id_user']);
                 return $user;
                 
         	
@@ -129,14 +130,15 @@ class SqlFunction{
 /*                             CREATION D'UN PROJET                                        */
 /* ------------------------------------------------------------------------------------ */
     public static function createProject($project, $user){
-        	
+        	echo("WHEEEEEEEEEEEEEEE");
     	try {
     		$db = SqlFunction::connexion();
+            $nameP = $project->getName();
+            $idU = $user->getId();
 	        $insert_user = $db->prepare('INSERT INTO projet(libelle_projet,id_userMaster) VALUES(:libelle_projet,:id_userMaster)');
-	       	$insert_user->bindParam(':libelle_projet', $project->getName());
-	        $insert_user->bindParam(':id_userMaster', $user->getId());
+	       	$insert_user->bindParam(':libelle_projet', $nameP);
+	        $insert_user->bindParam(':id_userMaster', $idU);
 			$insert_user->execute();
-			
     	}
     	 catch(PDOException $e) {
                 print "Erreur !: " . $e->getMessage() . "<br/>";
@@ -153,13 +155,12 @@ class SqlFunction{
 /*                                 LISTER DES PROJETS                                        */
 /* ------------------------------------------------------------------------------------ */
     public static function viewProject($user){
-
         $id = $user->getId();
         try{
             $db = SqlFunction::connexion();
 
-            $resultats=$db->prepare('SELECT DISTINCT projet.num_projet, projet.libelle_projet, projet.id_userMaster FROM projet,utilisateur WHERE id_userMaster = id_userMaster '); // on va chercher tous les membres de la table qu'on trie par ordre croissant
-            echo $user->getid();
+            $resultats=$db->prepare('SELECT DISTINCT projet.num_projet, projet.libelle_projet, projet.id_userMaster FROM projet,utilisateur WHERE id_userMaster = :id_userMaster '); // on va chercher tous les membres de la table qu'on trie par ordre croissant
+            echo $user->getId();
             $resultats->bindParam(':id_userMaster', $id);
 			$resultats->execute();	
         	return $resultats->fetchAll();

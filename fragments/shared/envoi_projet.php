@@ -2,8 +2,11 @@
 /* ------------------------------------------------------------------------------------ */
 /*								APPEL CREATION PROJET									*/
 /* ------------------------------------------------------------------------------------ */
-		session_start();
 		include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/data/SqlFunction.php');
-		$libelle = $_POST['name_prj'];
-		nouveauProjet($libelle,$_SESSION['user_id']);
+		include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Project.php');
+		include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/User.php');
+		echo($_SESSION['user_id']);
+		$unUser = new User(13,null,null,null);
+		$unProjet = new Project(null,$_POST['name_prj'],$unUser->getId());
+		SqlFunction::createProject($unProjet,$unUser);
 ?>

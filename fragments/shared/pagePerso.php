@@ -28,7 +28,8 @@ if(!empty($_SESSION)){
             <a onclick="return afficher();"><input type="submit" value="Creer" id="sub"/></a>
         </form>
         <div id='content-projet'>
-        <?php foreach ($projets as $ligne){?>
+        <?php foreach ($projets as $ligne){
+            echo("Hello World");?>
         <ul type="none" id="ligneProjet">
             <li>
                 <a id='lien' onclick='recup_num_projet("<?php echo $ligne['num_projet'] ?>");return false;' href='pageProjet.php'>
@@ -43,7 +44,7 @@ if(!empty($_SESSION)){
         ?>
     
     <?php
-        $jsDependencies[] = "/follow/res/js/test.js";
+        $jsDependencies[] = "/FollowMeGit/res/js/test.js";
     ?>
     <?php
         include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/fragments/shared/footer.php');
