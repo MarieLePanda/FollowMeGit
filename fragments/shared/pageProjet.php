@@ -72,5 +72,5 @@
 		
 		</TABLE>
 	</div>
-		<?php include ($_SERVER['DOCUMENT_ROOT'] . '/follow/fragments/shared/footer.php'); ?>
+		<?php include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/fragments/shared/footer.php'); ?>
 	</div>

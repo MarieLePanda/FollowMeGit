@@ -1,7 +1,4 @@
 <?php
-
-
-
 class User{
 	private $id;
 	public function getId(){
@@ -29,7 +26,7 @@ class User{
 	
 	private $pwd;
 	public function getPwd(){
-		return crypt($this->pwd);
+		return $this->pwd;
 	}
 	public function setPwd($pwd){
 		$this->pwd = $pwd;
