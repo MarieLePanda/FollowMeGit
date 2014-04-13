@@ -44,7 +44,7 @@
 				alert("Entrer un Mot de passe !");
 				return false;
 			}else if(mdpco.value.length < 5){
-				alert("Mot de Passe Incorrecte !");
+				alert("Mot de Passe Incorrecte ");
 				return false;
 			}else{
 				return true;

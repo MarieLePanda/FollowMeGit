@@ -29,7 +29,7 @@ class User{
 	
 	private $pwd;
 	public function getPwd(){
-		return $this->pwd;
+		return crypt($this->pwd);
 	}
 	public function setPwd($pwd){
 		$this->pwd = $pwd;
