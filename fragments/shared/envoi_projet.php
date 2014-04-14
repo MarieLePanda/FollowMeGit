@@ -10,3 +10,6 @@
 		$unProjet = new Project(null,$_POST['name_prj'],$unUser->getId());
 		SqlFunction::createProject($unProjet,$unUser);
 ?>
+<script>
+	setTimeout('location=(\"../../index.php\")' ,0);
+</script>
