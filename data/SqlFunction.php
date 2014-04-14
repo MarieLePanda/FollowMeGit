@@ -300,7 +300,8 @@ class SqlFunction{
         </script>*/
 
      }
-     public static function getNameProject($project){
+     
+	public static function getNameProject($project){
         $db = SqlFunction::connexion();
         try {
             $resultats = $db->prepare('SELECT libelle_projet
@@ -315,5 +316,43 @@ class SqlFunction{
             echo "Erreur !: " . $e->getMessage() . "<br/>";
          }
     }
+     
+    
+	public static function returnProject($idProject){
+        
+        try{
+            $db = SqlFunction::connexion();
+
+            $resultats=$db->prepare('SELECT DISTINCT projet.num_projet, projet.libelle_projet, projet.id_userMaster FROM projet,utilisateur WHERE num_projet :numProjet '); // on va chercher tous les membres de la table qu'on trie par ordre croissant
+            echo $user->getId();
+            $resultats->bindParam(':numProjet', $idProject);
+			$resultats->execute();	
+        	$data = $resultats->fetchAll();
+        	return new Project($data[0]['num_projet'], $data[0]['libelle_projet'], $data[0]['id_userMaster']);
+        }
+        catch(PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+        	die();
+        }
+	}
+	
+	public static function returnUser($idUser){
+        
+        try{
+            $db = SqlFunction::connexion();
+
+            $resultats=$db->prepare('SELECT * FROM utilisateur WHERE id_user :idUser '); // on va chercher tous les membres de la table qu'on trie par ordre croissant
+            echo $user->getId();
+            $resultats->bindParam(':idUser', $idUser);
+			$resultats->execute();	
+        	$data = $resultats->fetchAll();
+        	return new User($data[0]['id_user'], $data[0]['pseudo_user'], $data[0]['email_user'], $data[0]['mdp_user']);
+        }
+        catch(PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+        	die();
+        }
+	}
+	
 }
 ?>
