@@ -10,5 +10,5 @@ $user = $user->connection();
 $_SESSION['user_id'] = $user->getId();
 ?>
 <script>
-setTimeout('location=(\"../../index.php\")' ,0);
+	setTimeout('location=(\"../../index.php\")' ,0);
 </script>
