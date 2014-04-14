@@ -300,5 +300,20 @@ class SqlFunction{
         </script>*/
 
      }
+     public static function getNameProject($project){
+        $db = SqlFunction::connexion();
+        try {
+            $resultats = $db->prepare('SELECT libelle_projet
+                FROM projet
+                WHERE num_projet = :num_projet');
+            $projectId = $project->getId();
+            $resultats->bindParam(':num_projet', $projectId);
+            $resultats->execute();
+            $donnees = $resultats->fetchAll();
+            return $donnees[0]['libelle_projet'];
+         }catch (PDOException $e) {
+            echo "Erreur !: " . $e->getMessage() . "<br/>";
+         }
+    }
 }
 ?>
