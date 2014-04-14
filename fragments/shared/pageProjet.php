@@ -8,9 +8,9 @@
 	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Task.php');
 	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Statut.php');
 	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Priorite.php');
-	
-	$project = new Project(1, "follow", 0);
-	$user = new User(0, "panda", "panda@gmail.com", "panda");
+	echo("ID DU PROJET --> ".$_GET['id']);
+	$unUser = new User($_SESSION['user_id'],null,null,null);
+	$project = new Project($_GET['id'], null, $unUser->getId());
 	$statuts = SqlFunction::statut($project);
 	$priorite = SqlFunction::priorite($project);
 ?>
@@ -32,7 +32,7 @@
 				<?php
 					foreach ($statuts as $s) {
 				?>
-					<TH> <div id="entree"><?php echo $s->getName() ?></div> </TH>
+					<TH> <div id="entree"><?php echo $s->getName() . "statut"?></div> </TH>
 				<?php 
 					}
 				?>
@@ -41,7 +41,7 @@
 				foreach ($priorite as $p){
 			?>
 			<TR>
-				<TH> <div id="entree"> <?php echo $p->getName()?> </div> </TH>
+				<TH> <div id="entree"> <?php echo $p->getName() . "priorite"?> </div> </TH>
 				<?php 
 					foreach ($statuts as $s){
 				?>
