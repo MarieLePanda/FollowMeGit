@@ -11,7 +11,7 @@ class SqlFunction{
 /* ------------------------------------------------------------------------------------ */
     public static function connexion(){
         try{
-            $db = new PDO('mysql:host=localhost;dbname=testfollow1', "root", "root");
+            $db = new PDO('mysql:host=localhost;dbname=testfollow1', "root", "");
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $db;
         }catch (PDOException $e) {
@@ -269,4 +269,36 @@ class SqlFunction{
             return $arrayTask;
 
     }
-}?>
+
+
+    public static function createTask($task, $user, $project){
+        	$nameTask = $task->getName();
+        	$prioriteTask = $task->getPriorite();
+        	$statutTask = $task->getStatut();
+        	$idUser = $user->getId();
+        	$idUserMaster = $project->$idUserMaster();
+        	
+    	try {
+    		$db = SqlFunction::connexion();
+            $nameP = $project->getName();
+            $idU = $user->getId();
+	        $insert = $db->prepare('INSERT INTO tache(libelle_tache, id_user, id_statut, id_priorite, id_userMaster) VALUES(:libelle_tache, :id_user, :id_statut, :id_priorite, :id_userMaster');
+	       	$insert->bindParam(':libelle_tache', $nameTask);
+	        $insert->bindParam(':id_user', $idUser);
+	        $insert->bindParam(':id_statut', $statutTask);
+	        $insert->bindParam(':id_priorite', $prioriteTask);
+	        $insert->bindParam(':id_userMaster', $idUserMaster);
+			$insert->execute();
+    	}
+    	 catch(PDOException $e) {
+                print "Erreur !: " . $e->getMessage() . "<br/>";
+            	die();
+        	}
+           /*<script>
+            alert('***** Le projet a bien ete creer ****');
+            setTimeout('location=(\"../../fragments/shared/pagePerso.php\")' ,0);
+        </script>*/
+
+     }
+}
+?>
