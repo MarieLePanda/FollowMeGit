@@ -24,7 +24,7 @@ class SqlFunction{
 /* ------------------------------------------------------------------------------------ */
     public static function subscribe($user){
         try{
-        	$hashed_password = crypt($user->getPwd());
+        	$hashed_password = $user->getPwd();
             $db = SqlFunction::connexion();
         	$name = $user->getName();
         	$mail = $user->getEmail();
