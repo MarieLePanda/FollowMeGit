@@ -13,6 +13,7 @@
 	$project = new Project($_GET['id'], null, $unUser->getId());
 	$statuts = SqlFunction::statut($project);
 	$priorite = SqlFunction::priorite($project);
+	$nomProjet = SqlFunction::getNameProject($project);
 ?>
 	<div id= "buttons">
 		<ul id="side-menu">
@@ -25,14 +26,14 @@
 		</ul>
 	</div>
 	<div id="center">
-		<div id="TitreProjet"> Project Zero </div>
+		<div id="TitreProjet"><?php echo $nomProjet ?></div>
 		<TABLE id="tableau" BORDER="2">
 			<TR>
 				<TH></TH>
 				<?php
 					foreach ($statuts as $s) {
 				?>
-					<TH> <div id="entree"><?php echo $s->getName() . "statut"?></div> </TH>
+					<TH> <div id="entree"><?php echo $s->getName()?></div> </TH>
 				<?php 
 					}
 				?>
@@ -41,7 +42,7 @@
 				foreach ($priorite as $p){
 			?>
 			<TR>
-				<TH> <div id="entree"> <?php echo $p->getName() . "priorite"?> </div> </TH>
+				<TH> <div id="entree"> <?php echo $p->getName()?> </div> </TH>
 				<?php 
 					foreach ($statuts as $s){
 				?>
@@ -54,7 +55,7 @@
 					<!-- <br /> -->
 					<div id="tache">
 							<?php
-								echo($t->getName() . "\n " ."");
+								echo("<div id='uneTache' onClick='onClickTache(".$s->getId().",".$p->getId().",".$t->getId().");' class=".$t->getId()." name".$t->getName().">".$t->getName()."</div>");
 							?>
 					</div>
 						<?php
@@ -74,3 +75,12 @@
 	</div>
 		<?php include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/fragments/shared/footer.php'); ?>
 	</div>
+    <?php
+        $jsDependencies[] = "/FollowMeGit/res/js/test.js";
+    ?>
+<script>
+	function onClickTache(idStatut,idPriorite,idTache){
+		setTimeout('location=(\"modificationTache.php?idStatut='+idStatut+'\")');	
+		//alert("L'ID du statut est : " + idStatut + "\n " + "L'ID de la priorite est : " + idPriorite + "\n" + "L'ID de la tache est : "+ idTache);
+	}
+</script>
