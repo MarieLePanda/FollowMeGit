@@ -29,7 +29,7 @@ if(!empty($_SESSION)){
         </form>
         <div id='content-projet'>
         <?php foreach ($projets as $ligne){
-            echo("Hello World");?>
+        ?>
         <ul type="none" id="ligneProjet">
             <li>
                 <a id='lien' onclick='recup_num_projet("<?php echo $ligne['num_projet'] ?>");return false;' href='pageProjet.php'>
