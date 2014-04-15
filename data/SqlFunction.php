@@ -315,8 +315,7 @@ class SqlFunction{
             echo "Erreur !: " . $e->getMessage() . "<br/>";
          }
     }
-    public static function returnProject($idProject){
-        
+    public static function returnProject($idProject){ 
         try{
             $db = SqlFunction::connexion();
 
@@ -350,6 +349,33 @@ class SqlFunction{
             die();
         }
     }
-
+    public static function getStatut($idProject){ 
+        try{
+            $db = SqlFunction::connexion();
+            $resultats=$db->prepare('SELECT id_statut,libelle_statut FROM statut,projet WHERE statut.num_projetRef = projet.num_projet AND num_projet = :id_projet ');
+            $resultats->bindParam(':id_projet', $idProject);
+            $resultats->execute();  
+            $data = $resultats->fetchAll();
+            return $data;
+        }
+        catch(PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+            die();
+        }
+    }
+    public static function getPriorite($idProject){ 
+        try{
+            $db = SqlFunction::connexion();
+            $resultats=$db->prepare('SELECT id_priorite,libelle_priorite FROM priorite,projet WHERE priorite.num_projetRef = projet.num_projet AND num_projet = :id_projet ');
+            $resultats->bindParam(':id_projet', $idProject);
+            $resultats->execute();  
+            $data = $resultats->fetchAll();
+            return $data;
+        }
+        catch(PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+            die();
+        }
+    }
 }
 ?>

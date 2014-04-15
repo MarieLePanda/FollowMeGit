@@ -20,7 +20,6 @@
     }
     function recup_num_projet(value){
 		document.location.href="/FollowMeGit/fragments/shared/pageProjet.php?id="+value;
-		//document.location.href="/FollowMeGit/fragments/shared/modificationTache.php?id="+value;
     	console.log('OBJ', value);
 //    	var toto = document.getElementById('lien').value;
     }

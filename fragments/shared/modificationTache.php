@@ -2,28 +2,35 @@
 	session_start();
 	include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/fragments/shared/headerSite.php');
     include ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/data/SqlFunction.php');
+    $statuts = SqlFunction::getStatut($_GET['idProjet']);
+    $priorite = SqlFunction::getPriorite($_GET['idProjet']);
 ?>
 <meta charset='utf-8'>
-<form method="POST" action="envoi_modif_task.php">
+<form method="POST" action="#">
 	<ul>
-		<li><b>ID DU STATUT</b></li><li><input type="text" value="<?php echo $_GET['idStatut'] ?>" placeholder="id statut"/></li>
+		<li><b>ID DU STATUT</b></li><li><input disabled="true" type="text" value="<?php echo $_GET['idStatut'] ?>" placeholder="id statut"/></li>
 	<br />
 	<br />
 	<li><b>PRIORITE</b></li>
-	<li><select><option> Priorité</option>
+	<li>
+		<select>
 			<?php 
-				echo("<option id='1' value='uneValeur'></option>");
+				foreach($priorite as $t){
+					echo("<option id=".$t['id_priorite']." name=".$t['libelle_priorite'].">".$t['libelle_priorite']."</option>");
+				}
 			?>
-	</select></li>
+		</select>
+	</li>
 	<br />
 	<br />
 	<li>
 		<b>STATUT</b></li>
 		<li>
 		<select>
-			<option> Statut</option>
 			<?php 
-				echo("<option id='1' value='uneValeur'></option>");
+				foreach($statuts as $s){
+					echo("<option id=".$s['id_statut']." name=".$s['libelle_statut'].">".$s['libelle_statut']."</option>");
+				}
 			?>
 		</select>
 	</li>
@@ -33,6 +40,7 @@
 </form>
 <?php
    $jsDependencies[] = "/FollowMeGit/res/js/test.js";
+
 ?>
 <style>
 	ul,li{

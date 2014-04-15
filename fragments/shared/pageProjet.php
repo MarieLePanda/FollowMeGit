@@ -8,7 +8,6 @@
 	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Task.php');
 	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Statut.php');
 	include_once ($_SERVER['DOCUMENT_ROOT'] . '/FollowMeGit/Object/Priorite.php');
-	echo("ID DU PROJET --> ".$_GET['id']);
 	$unUser = new User($_SESSION['user_id'],null,null,null);
 	$project = new Project($_GET['id'], null, $unUser->getId());
 	$statuts = SqlFunction::statut($project);
@@ -55,7 +54,7 @@
 					<!-- <br /> -->
 					<div id="tache">
 							<?php
-								echo("<div id='uneTache' onClick='onClickTache(".$s->getId().",".$p->getId().",".$t->getId().");' class=".$t->getId()." name".$t->getName().">".$t->getName()."</div>");
+								echo("<div id='uneTache' onClick='onClickTache(".$project->getId().",".$s->getId().",".$p->getId().",".$t->getId().");' class=".$t->getId()." name".$t->getName().">".$t->getName()."</div>");
 							?>
 					</div>
 						<?php
@@ -79,8 +78,8 @@
         $jsDependencies[] = "/FollowMeGit/res/js/test.js";
     ?>
 <script>
-	function onClickTache(idStatut,idPriorite,idTache){
-		setTimeout('location=(\"modificationTache.php?idStatut='+idStatut+'\")');	
+	function onClickTache(idProjet,idStatut,idPriorite,idTache){
+		setTimeout('location=(\"modificationTache.php?idProjet='+idProjet+'&idTache='+idTache+'&idPriorite='+idPriorite+'&idStatut='+idStatut+'\")');	
 		//alert("L'ID du statut est : " + idStatut + "\n " + "L'ID de la priorite est : " + idPriorite + "\n" + "L'ID de la tache est : "+ idTache);
 	}
 </script>
