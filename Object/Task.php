@@ -41,7 +41,6 @@ class Task{
 		$this->statut = $statut;
 		$this->priorite = $priorite;
 	}
-	
 	public function  createTask($user, $project){
 		SqlFunction::createTask($this, $user, $project);
 	}
